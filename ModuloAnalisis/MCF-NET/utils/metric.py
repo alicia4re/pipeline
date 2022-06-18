@@ -21,28 +21,28 @@ def compute_metric(datanpGT, datanpPRED, target_names):
         tmp_pred = argmaxPRED == i
         F1_metric[i] = f1_score(tmp_label, tmp_pred)
         tn[i], fp[i], fn[i], tp[i] = confusion_matrix(tmp_label, tmp_pred).ravel()
-        outAUROC = roc_auc_score(tmp_label, datanpPRED[:, i])
+        # outAUROC = roc_auc_score(tmp_label, datanpPRED[:, i])
 
-        mAUC = mAUC + outAUROC
-        [roc_fpr, roc_tpr, roc_thresholds] = roc_curve(tmp_label, datanpPRED[:, i])
+        # mAUC = mAUC + outAUROC
+        # [roc_fpr, roc_tpr, roc_thresholds] = roc_curve(tmp_label, datanpPRED[:, i])
 
-        ROC_curve.update({'ROC_fpr_'+str(i): roc_fpr,
-                          'ROC_tpr_' + str(i): roc_tpr,
-                          'ROC_T_' + str(i): roc_thresholds,
-                          'AUC_' + str(i): outAUROC})
+        # ROC_curve.update({'ROC_fpr_'+str(i): roc_fpr,
+        #                   'ROC_tpr_' + str(i): roc_tpr,
+        #                   'ROC_T_' + str(i): roc_thresholds,
+        #                   'AUC_' + str(i): outAUROC})
 
     mPrecision = sum(tp) / sum(tp + fp)
     mRecall = sum(tp) / sum(tp + fn)
     output = {
         'class_name': target_names,
         'F1': F1_metric,
-        'AUC': mAUC / 3,
+        # 'AUC': mAUC / 3,
         'Accuracy': Accuracy_score,
 
         'Sensitivity': tp / (tp + fn),
         'Precision': tp / (tp + fp),
         'Specificity': tn / (fp + tn),
-        'ROC_curve': ROC_curve,
+        # 'ROC_curve': ROC_curve,
         'tp': tp, 'tn': tn, 'fp': fp, 'fn': fn,
 
         'micro-Precision': mPrecision,

@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     # Setting parameters
     parser = argparse.ArgumentParser(description='EyeQ_dense121')
-    parser.add_argument('--model_dir', type=str, default='../result/')
+    parser.add_argument('--model_dir', type=str, default='./')
     parser.add_argument('--pre_model', type=str, default='DenseNet121_v3_v1')
     parser.add_argument('--save_model', type=str, default='DenseNet121_v3_v1')
 
@@ -41,16 +41,16 @@ if __name__ == '__main__':
     parser.add_argument('--n_classes', type=int, default=3)
     # Optimization options
     parser.add_argument('--epochs', default=20, type=int)
-    parser.add_argument('--batch-size', default=4, type=int)
+    parser.add_argument('--batch-size', default=1, type=int)
     parser.add_argument('--lr', default=0.01, type=float)
     parser.add_argument('--loss_w', default=[0.1, 0.1, 0.1, 0.1, 0.6], type=list)
 
     args = parser.parse_args()
 
     # Images Labels
-    train_images_dir = data_root + '/train'
+    train_images_dir = data_root + 'train'
     label_train_file = '../data/Label_EyeQ_train.csv'
-    test_images_dir = data_root + '/test'
+    test_images_dir = data_root + 'test'
     label_test_file = '../data/Label_EyeQ_test.csv'
 
     save_file_name = args.model_dir + args.save_model + '.csv'
@@ -95,12 +95,12 @@ if __name__ == '__main__':
     data_train = DatasetGenerator(data_dir=train_images_dir, list_file=label_train_file, transform1=transform_list1,
                                   transform2=transformList2, n_class=args.n_classes, set_name='train')
     train_loader = torch.utils.data.DataLoader(dataset=data_train, batch_size=args.batch_size,
-                                               shuffle=True, num_workers=4, pin_memory=True)
+                                               shuffle=True, num_workers=1, pin_memory=True)
 
     data_test = DatasetGenerator(data_dir=test_images_dir, list_file=label_test_file, transform1=transform_list_val1,
                                  transform2=transformList2, n_class=args.n_classes, set_name='test')
     test_loader = torch.utils.data.DataLoader(dataset=data_test, batch_size=args.batch_size,
-                                              shuffle=False, num_workers=4, pin_memory=True)
+                                              shuffle=False, num_workers=1, pin_memory=True)
 
     # # Train and val
     # for epoch in range(0, args.epochs):
