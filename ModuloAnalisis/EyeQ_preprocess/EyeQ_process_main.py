@@ -1,4 +1,4 @@
-import fundus_prep as prep
+import fundus_prep 
 import glob
 import os
 import cv2 as cv
@@ -15,10 +15,10 @@ def process(image_lista, g_path):
             print('continue...')
             continue
         try:
-            img = prep.imread(image_path)
-            r_img, borders, mask = prep.process_without_gb(img)
+            img = fundus_prep.imread(image_path)
+            r_img, borders, mask = fundus_prep.process_without_gb(img)
             r_img = cv.resize(r_img, (600, 600))
-            prep.imwrite(dst_path, r_img)
+            fundus_prep.imwrite(dst_path, r_img)
             # mask = cv.resize(mask, (800, 800))
             # prep.imwrite(os.path.join('./original_mask', dst_image), mask)
         except:
@@ -26,8 +26,12 @@ def process(image_lista, g_path):
             continue
 
 
-if __name__ == "__main__":
+def runPreProcessEyeQ():
     image_list = glob.glob(os.path.join('original_img', '*.jpeg'))
-    save_path = prep.fold_dir('./original_crop')
+    save_path = fundus_prep.fold_dir('./pipeline/data/original_crop')
 
     process(image_list, save_path)
+
+
+if __name__ == "__main__":
+    runPreProcessEyeQ

@@ -1,0 +1,11 @@
+image,quality,level
+0,10_left,2,0
+1,10_right,1,0
+2,13_left,2,0
+3,13_right,0,0
+4,15_left,3,1
+5,15_right,1,2
+6,16_left,1,4
+7,16_right,2,4
+8,17_left,0,0
+9,17_right,1,1

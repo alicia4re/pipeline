@@ -15,19 +15,16 @@ from utils.metric import compute_metric
 import pandas as pd
 from networks.densenet_mcf import dense121_mcs
 
-def run():
+def run_MCF_NET():
     print('loop')
     #torch.multiprocessing.freeze_support()
-
-if __name__ == '__main__':
-    run()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     np.random.seed(0)
 
-    data_root = '../data/'
+    data_root = './data/'
 
     # Setting parameters
     parser = argparse.ArgumentParser(description='EyeQ_dense121')
@@ -49,9 +46,9 @@ if __name__ == '__main__':
 
     # Images Labels
     train_images_dir = data_root + 'train'
-    label_train_file = '../data/Label_EyeQ_train.csv'
+    label_train_file = './data/Label_EyeQ_train.csv'
     test_images_dir = data_root + 'test'
-    label_test_file = '../data/Label_EyeQ_test.csv'
+    label_test_file = './data/Label_EyeQ_test.csv'
 
     save_file_name = args.model_dir + args.save_model + '.csv'
 
@@ -159,3 +156,7 @@ if __name__ == '__main__':
           ' Precision: ' + str("{:0.4f}".format(np.mean(tmp_report['Precision']))) +
           ' Sensitivity: ' + str("{:0.4f}".format(np.mean(tmp_report['Sensitivity']))) +
           ' F1: ' + str("{:0.4f}".format(np.mean(tmp_report['F1']))))
+
+
+if __name__ == '__main__':
+    run_MCF_NET()

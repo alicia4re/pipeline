@@ -1,16 +1,19 @@
-# This is a sample Python script.
+#from ModuloAnalisis.MCF_NET import Main_EyeQuality as mcf
+#from ModuloAnalisis.EyeQ_preprocess import EyeQ_process_main as eyeQ
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from ModuloAnalisis import *
+import ModuloAnalisis.EyeQ_preprocess.EyeQ_process_main as eyeQ
+import ModuloAnalisis.MCF_NET.Main_EyeQuality as mcf
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    print('Analizamos las imágenes del dataset')
+    eyeQ.runPreProcessEyeQ
+    mcf.run_MCF_NET
+    # Guardamos las imágenes en 3 carpetas según su calidad
+    
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
