@@ -1,4 +1,4 @@
-import fundus_prep 
+from ModuloAnalisis.EyeQ_preprocess.fundus_prep import *
 import glob
 import os
 import cv2 as cv
@@ -15,10 +15,10 @@ def process(image_lista, g_path):
             print('continue...')
             continue
         try:
-            img = fundus_prep.imread(image_path)
-            r_img, borders, mask = fundus_prep.process_without_gb(img)
+            img = imread(image_path)
+            r_img, borders, mask = process_without_gb(img)
             r_img = cv.resize(r_img, (600, 600))
-            fundus_prep.imwrite(dst_path, r_img)
+            imwrite(dst_path, r_img)
             # mask = cv.resize(mask, (800, 800))
             # prep.imwrite(os.path.join('./original_mask', dst_image), mask)
         except:
@@ -28,10 +28,10 @@ def process(image_lista, g_path):
 
 def runPreProcessEyeQ():
     image_list = glob.glob(os.path.join('original_img', '*.jpeg'))
-    save_path = fundus_prep.fold_dir('./pipeline/data/original_crop')
+    save_path = fold_dir('./pipeline/data/original_crop')
 
     process(image_list, save_path)
 
 
 if __name__ == "__main__":
-    runPreProcessEyeQ
+    runPreProcessEyeQ()

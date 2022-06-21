@@ -24,6 +24,7 @@ def process(image_list):
         name = name_ext.split('.')[0]
         
         img = Image.open(image_path).convert('RGB')
+        img = img.resize((sizeX, sizeY), Image.BICUBIC)
         mask = Image.open(mask_path).convert('L')
         mask = mask.resize((sizeX, sizeY), Image.BICUBIC)
         mask = np.expand_dims(mask, axis=2)
@@ -33,16 +34,16 @@ def process(image_list):
             r_img, r_params = DE_process(img, mask, sizeX, sizeY, t)
             dst_img = os.path.join('./data/de_image', name+'_'+t+'.jpeg')
             imwrite(dst_img, r_img)
-            param_dict = {'name':name_ext, 'type':t, 'params':r_params}
-            with open(os.path.join('./data/de_js_file', name+'_'+t+'.json'), 'w') as json_file:
-                json.dump(param_dict, json_file)
+            #param_dict = {'name':name_ext, 'type':t, 'params':r_params}
+            #with open(os.path.join('./data/de_js_file', name+'_'+t+'.json'), 'w') as json_file:
+            #    json.dump(param_dict, json_file)
 
         
 if __name__=="__main__":
     
-    image_list = glob.glob(os.path.join('./data/image/', '*.jpeg'))
+    image_list = glob.glob(os.path.join('./data/good/', '*.jpeg'))
                 
-    patches = 16
+    patches = 6
     patch_len = int(len(image_list)/patches)
     filesPatchList = []
     for i in range(patches-1):
@@ -53,4 +54,4 @@ if __name__=="__main__":
     # mutiple process
     pool = Pool(patches)
     pool.map(process, filesPatchList)
-    pool.close()
+    #pool.close()

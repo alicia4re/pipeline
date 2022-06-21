@@ -16,8 +16,8 @@ dsize = (512,512)
 def process(image_list):  
     for image_path in image_list: 
         name = image_path.split('/')[-1]
-        dst_image_path = os.path.join('./data/image', name)
-        dst_mask_path = os.path.join('./data/mask', name)
+        dst_image_path = os.path.join('./data/test/image', name)
+        dst_mask_path = os.path.join('./data/test/mask', name)
         try:
             img = imread(image_path)
             img, mask = preprocess(img)
@@ -25,13 +25,15 @@ def process(image_list):
             mask = cv.resize(mask, dsize)
             imwrite(dst_image_path, img)
             imwrite(dst_mask_path, mask)
+            print("122")
+            print(dst_image_path)
         except:
             print(image_path)
             continue
 
 if __name__=="__main__":
     
-    image_list = glob.glob(os.path.join('./data/sample', '*.jpeg'))
+    image_list = glob.glob(os.path.join('./data/test', '*.jpeg'))
                 
     patches = 16
     patch_len = int(len(image_list)/patches)
